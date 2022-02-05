@@ -5,53 +5,63 @@ pipeline {
     registryCredential = 'dockerhub'
   }
   agent any
-
-  stages { // Define the individual processes, or stages, of your CI pipeline
-
-    stage('Checkout') { // Checkout (git clone ...) the projects repository //test git-push
+  
+// Define the individual processes, or stages, of your CI pipeline
+  
+  stages { 
+// Checkout (git clone ...) the projects repository 
+// to test push a change to git
+    stage('Checkout') { 
       steps {
         checkout scm
-
       }
     }
-
-    stage('Building image') { //building image
+    
+//building image
+    stage('Building image') { 
       steps{
         script {
-          docker.build("306655/image_repo","./simple_app/")
+          docker.build("306655/image_repo","./Dockerfile")
         }
       }
     }
-
-    stage ('Test image') { // test image
+    
+// test image
+    stage ('Test image') { 
       agent{
         docker {image'306655/image_repo'}
       }
       steps {
-      sh "curl -X GET http://localhot:5000"}
+        sh "curl -X GET http://localhot:5000"
+      }
     }
-
-    stage ( 'push image' ) { //push image
+    
+//push image
+    stage ( 'push image' ) { 
       steps {
         script {
-          docker.withRegistry('https://hub.docker.com/r/306655/image_repo','registryCredential') {
+          docker.withRegistry('https://hub.docker.com/r/306655/image_repo','registryCredential') 
+          {
             dockerImage.push() 
           }
         }
       }
     }
-
-    stage('Destroy') {
-      steps {
-        echo '> Destroying the docker artifacts ...'
-        sh 'make -sC docker/ destroy'
-      }
-    }
-    stage('Deploy') {
-        steps {
-          echo '> Deploying the application ...'
-          sh 'ansible-playbook /simple-deploy.yml -i /inventory.yml'
-        }
-    }
-  }
+    
+//destroy the docker artifacts
+		stage('Destroy') {
+		  steps {
+		      echo '> Destroying the docker artifacts ...'
+		      sh 'make -sC docker/ destroy'
+		  }
+		}
+    
+//deploy image with ansible to production server
+		stage('Deploy') {
+		  steps {
+		      echo '> Deploying the application ...'
+		      sh 'ansible-playbook /simple-deploy.yml -i /inventory.yml'
+		  }
+		}
+	}
 }
