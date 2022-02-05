@@ -13,3 +13,4 @@ name: Deploy the application to the "staging" server
         dest: /home/pozos/
         owner: oussama-elmehdi-yassine
         group: oey-groupe
+        mode: 0755
