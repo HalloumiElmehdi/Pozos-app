@@ -1,0 +1,6 @@
+[all:vars]
+ansible_user=oussama-elmehdi-yassine
+ansible_pass=oey-pass
+ansible_sudo_pass=oey-sudo-pass
+[pozosApp]
+192.168.57.102
