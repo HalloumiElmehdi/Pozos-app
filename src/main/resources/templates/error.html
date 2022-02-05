@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+
+<div class="alert alert-danger mt-2" role="alert">
+    <div class="row">
+        <div class="col-sm-9">
+            Error :
+            <p th:text="${error}"></p>
+        </div>
+        <div class="col-sm-3">
+            <a class="nav-link" th:href="@{/}">Go Back</a>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+
+
+
+
+</html>
