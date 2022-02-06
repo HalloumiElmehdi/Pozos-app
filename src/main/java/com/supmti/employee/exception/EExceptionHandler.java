@@ -7,19 +7,19 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
-@ControllerAdvice(annotations = RestController.class)
-public class ExceptionHandler {
+@ControllerAdvice(annotations = Controller.class)
+public class EExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ResponseStatusException.class)
+    @ExceptionHandler(ResponseStatusException.class)
     public String handleNotFound(final ResponseStatusException exception, Model model) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setHttpStatus(exception.getStatus().value());
@@ -31,7 +31,7 @@ public class ExceptionHandler {
         return "error";
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public String handleMethodArgumentNotValid(
             final MethodArgumentNotValidException exception, Model model) {
         final BindingResult bindingResult = exception.getBindingResult();
@@ -55,7 +55,7 @@ public class ExceptionHandler {
         return "error";
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(Throwable.class)
+    @ExceptionHandler(Throwable.class)
     public String handleThrowable(final Throwable exception, Model model) {
         exception.printStackTrace();
         ErrorResponse errorResponse = new ErrorResponse();

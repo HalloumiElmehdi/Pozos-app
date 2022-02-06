@@ -1,0 +1,16 @@
+name: Deploy the application to the "staging" server
+  hosts: pozosApp
+  tasks:
+    - name: Create the application directory
+      file:
+        path: /home/pozos/
+        state: directory
+        owner: oualid-ilyass
+        group: oi-groupe
+    - name: Copy docker files over
+      copy:
+        src: ../../../docker/
+        dest: /home/pozos/
+        owner: oussama-elmehdi-yassine
+        group: oey-groupe
+        mode: 0755
