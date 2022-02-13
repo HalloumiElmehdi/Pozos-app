@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface EmployeeDao {
     List<Employee> findAll();
     Optional<Employee> findById(final Long id);
-    Long save(final Employee book);
+    Long save(final Employee employee);
     void deleteById(final Long id);
 
 }

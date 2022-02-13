@@ -11,30 +11,30 @@ import java.util.Optional;
 @Component
 public class EmployeeDaoImp implements EmployeeDao {
 
-    private final EmployeeRepository bookRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public EmployeeDaoImp(EmployeeRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public EmployeeDaoImp(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
     public List<Employee> findAll() {
-        return bookRepository.findAll();
+        return employeeRepository.findAll();
     }
 
 
     @Override
     public Optional<Employee> findById(Long id) {
-        return bookRepository.findById(id);
+        return employeeRepository.findById(id);
     }
 
     @Override
     public Long save(Employee book) {
-        return bookRepository.save(book).getId();
+        return employeeRepository.save(book).getId();
     }
 
     @Override
     public void deleteById(Long id) {
-        bookRepository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 }

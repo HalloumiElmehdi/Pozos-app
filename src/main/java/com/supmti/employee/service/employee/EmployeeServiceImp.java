@@ -20,8 +20,8 @@ public class EmployeeServiceImp implements EmployeeService {
     private final EmployeeDao employeeDao;
     private final Mapper<Employee, EmployeeDTO> mapper = new EmployeeMapper();
 
-    public EmployeeServiceImp(EmployeeDao bookDao) {
-        this.employeeDao = bookDao;
+    public EmployeeServiceImp(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
     }
 
 
